@@ -2,6 +2,7 @@ const express = require('express');
 const routes = require('./routes');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 // conection mongo
 mongoose.Promise = global.Promise;
@@ -16,6 +17,9 @@ const app = express();
 //enable bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+
+// enable cors client-api
+app.use(cors());
 
 // routes of app
 app.use('/', routes());
