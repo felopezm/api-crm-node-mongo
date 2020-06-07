@@ -24,6 +24,9 @@ app.use(cors());
 // routes of app
 app.use('/', routes());
 
+// folder public
+app.use(express.static('uploads'));
+
 // port
 app.listen(5000);
 console.log('Run server port: 5000');

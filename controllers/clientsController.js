@@ -7,8 +7,8 @@ exports.newClient = async (req, res, next) => {
         await client.save();
         res.json({ message: 'New cliente added !' });
     } catch (error) {
-        console.log(error);
-        return next();
+       res.send(error);
+       next();
     }
 
 }
@@ -45,8 +45,8 @@ exports.updateClient = async (req, res, next) => {
 
         res.json(client);
     } catch (error) {
-        console.log(error);
-        return next();
+        res.send(error);
+        next();
     }
 }
 
