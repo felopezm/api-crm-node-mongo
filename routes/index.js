@@ -29,6 +29,7 @@ module.exports = function () {
         productsController.updateProduct
     );
     router.delete('/products/:id', productsController.deleteProduct);
+    router.post('/products/search/:query', productsController.searchProduct);
 
     /** orders */
     router.post('/orders', ordersController.newOrder);
