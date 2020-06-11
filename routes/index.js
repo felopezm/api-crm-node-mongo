@@ -3,40 +3,49 @@ const router = express.Router();
 const clientsController =  require('../controllers/clientsController');
 const productsController =  require('../controllers/productsController');
 const ordersController =  require('../controllers/ordersController');
+const usersController =  require('../controllers/usersController');
 
-module.exports = function () {
+module.exports = () => {
+
+    // middle for segurity routes
+    const auth = require('../middleware/auth');
+
     /** index */
     router.get('/', (req,res) =>{
-        res.send('init');
+        res.send('Hello World');
     });
 
     /** clients */
-    router.post('/clients', clientsController.newClient);
-    router.get('/clients', clientsController.viewClients);
-    router.get('/clients/:id', clientsController.viewClient);
-    router.put('/clients/:id', clientsController.updateClient);
-    router.delete('/clients/:id', clientsController.deleteClient);
+    router.post('/clients', auth, clientsController.newClient);
+    router.get('/clients', auth, clientsController.viewClients);
+    router.get('/clients/:id', auth, clientsController.viewClient);
+    router.put('/clients/:id', auth, clientsController.updateClient);
+    router.delete('/clients/:id', auth, clientsController.deleteClient);
 
     /** products */
-    router.post('/products',        
+    router.post('/products', auth,       
         productsController.uploadfile,
         productsController.newProduct
     );
-    router.get('/products', productsController.viewProducts);
-    router.get('/products/:id', productsController.viewProduct);
-    router.put('/products/:id',
+    router.get('/products', auth, productsController.viewProducts);
+    router.get('/products/:id', auth, productsController.viewProduct);
+    router.put('/products/:id', auth,
         productsController.uploadfile,
         productsController.updateProduct
     );
-    router.delete('/products/:id', productsController.deleteProduct);
-    router.post('/products/search/:query', productsController.searchProduct);
+    router.delete('/products/:id', auth, productsController.deleteProduct);
+    router.post('/products/search/:query', auth, productsController.searchProduct);
 
     /** orders */
-    router.post('/orders', ordersController.newOrder);
-    router.get('/orders', ordersController.viewOrders);
-    router.get('/orders/:id', ordersController.viewOrder);
-    router.put('/orders/:id', ordersController.updateOrder);
-    router.delete('/orders/:id', ordersController.deleteOrder);
+    router.post('/orders', auth, ordersController.newOrder);
+    router.get('/orders', auth, ordersController.viewOrders);
+    router.get('/orders/:id', auth, ordersController.viewOrder);
+    router.put('/orders/:id', auth, ordersController.updateOrder);
+    router.delete('/orders/:id', auth, ordersController.deleteOrder);
+
+    /** users */
+    router.post('/new-acount', usersController.newUser);
+    router.post('/login', usersController.autenticateUser);
 
     return router;
 }
