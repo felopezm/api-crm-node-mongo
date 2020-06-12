@@ -16,14 +16,14 @@ module.exports = () => {
     });
 
     /** clients */
-    router.post('/clients', auth, clientsController.newClient);
+    router.post('/clients', clientsController.newClient);
     router.get('/clients', auth, clientsController.viewClients);
     router.get('/clients/:id', auth, clientsController.viewClient);
     router.put('/clients/:id', auth, clientsController.updateClient);
     router.delete('/clients/:id', auth, clientsController.deleteClient);
 
     /** products */
-    router.post('/products', auth,       
+    router.post('/products',       
         productsController.uploadfile,
         productsController.newProduct
     );
@@ -34,17 +34,17 @@ module.exports = () => {
         productsController.updateProduct
     );
     router.delete('/products/:id', auth, productsController.deleteProduct);
-    router.post('/products/search/:query', auth, productsController.searchProduct);
+    router.post('/products/search/:query', productsController.searchProduct);
 
     /** orders */
-    router.post('/orders', auth, ordersController.newOrder);
+    router.post('/orders', ordersController.newOrder);
     router.get('/orders', auth, ordersController.viewOrders);
     router.get('/orders/:id', auth, ordersController.viewOrder);
     router.put('/orders/:id', auth, ordersController.updateOrder);
     router.delete('/orders/:id', auth, ordersController.deleteOrder);
 
     /** users */
-    router.post('/new-acount', usersController.newUser);
+    router.post('/new-acount', auth, usersController.newUser);
     router.post('/login', usersController.autenticateUser);
 
     return router;
